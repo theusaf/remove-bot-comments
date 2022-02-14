@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      0.1.0
+// @version      1.1.0
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -16,10 +16,8 @@ const SITES = Object.freeze({
       /^\s{2,}/,
       /^https:\/\/[^\s]+$/,
       (text) => {
-        // todo: only match strings that are non-language characters, but used in bot comments.
-        // this regex currently matches non-english languages
-        const nonLetter = text.match(/[^\w]/g)?.length ?? 0;
-        return nonLetter / text.length > 0.7 && text.length > 10;
+        const smallLatinCaps = text.match(/[ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘᴏ̨ʀsᴛᴜᴠᴡxʏᴢ\s]/g)?.length ?? 0;
+        return smallLatinCaps / text.length > 0.7 && text.length > 10;
       }
     ]
   }),
