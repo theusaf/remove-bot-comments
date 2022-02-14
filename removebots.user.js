@@ -1,20 +1,26 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.1.0
+// @version      1.2.0
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
 // @copyright    2022 theusaf
 // @license      MIT
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @grant        none
 // ==/UserScript==
 
 const SITES = Object.freeze({
     YOUTUBE: [
-      /^\s{2,}/,
-      /^https:\/\/[^\s]+$/,
+      /^\s{2,}/, // starts with too much whitespace
+      /^(\s*@.+)?\s*(https:\/\/[^\s]+|[\n.\s])+$/, // only links and other punctuation
+      /^(\s*@.+)?[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/, // all caps and a link
+      /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(dont miss|Dont miss|Bots for u|Finally|💜|fax)/, // A link and a random message afterwards
+      /^(\s*@.+)?\s*This\s*https:\/\/[^\s]+/, // This + link
+      /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/, // link + random "word"
+      /PRIVATE S\*X/,
+      /-{5,}/, // too many "-"
+      /SPECIAL FOR YOU/, // common phrase
       (text) => {
         const smallLatinCaps = text.match(/[ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘᴏ̨ʀsᴛᴜᴠᴡxʏᴢ\s]/g)?.length ?? 0;
         return smallLatinCaps / text.length > 0.7 && text.length > 10;
@@ -81,5 +87,3 @@ function getCurrentSite() {
     }
   }
 }
-
-// ytd-comment-renderer
