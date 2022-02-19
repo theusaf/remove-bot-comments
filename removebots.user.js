@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.2.2
+// @version      1.3.0
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -14,14 +14,19 @@ const SITES = Object.freeze({
     YOUTUBE: [
       /^\s{2,}/, // starts with too much whitespace
       /^(\s*@.+)?\s*(https:\/\/[^\s]+|[\n.\s])+$/, // only links and other punctuation
-      /^(\s*@.+)?[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/, // all caps and a link
+      /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/, // all caps and a link
       /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*([dD]on'?t [mM]iss|Bots for u|Finally|💜|fax)/, // A link and a random message afterwards
-      /^(\s*@.+)?\s*This\s*https:\/\/[^\s]+/, // This + link
+      /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/, // word + link
       /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/, // link + random "word"
-      /PRIVATE S\*X/,
+      /PRIVATE S\*X|over 18/, // ...
+      /beautyzone\.\w+|\.cam|lust\.\w+/i, // suspicious websites
       /-{5,}/, // too many "-"
-      /SPECIAL FOR YOU/, // common phrase
+      /SPECIAL FOR YOU|MY CONTENT/, // common phrase
       (text) => {
+        const charSets = [
+          /[ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘᴏ̨ʀsᴛᴜᴠᴡxʏᴢ\s]/g,
+          /[\u1D538-\u1D56B]/g // math letter symbols
+        ]
         const smallLatinCaps = text.match(/[ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘᴏ̨ʀsᴛᴜᴠᴡxʏᴢ\s]/g)?.length ?? 0;
         return smallLatinCaps / text.length > 0.7 && text.length > 10;
       }
