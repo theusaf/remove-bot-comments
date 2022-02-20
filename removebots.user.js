@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.4.0
+// @version      1.4.1
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -13,7 +13,7 @@
 const SITES = Object.freeze({
     YOUTUBE: [
       /^\s{2,}/, // starts with too much whitespace
-      /^(\s*@.+)?\s*(https:\/\/[^\s]+|[\n.\s])+$/, // only links and other punctuation
+      /^(\s*@.+)?\s*(https:\/\/[^\s]+)(https:\/\/[^\s]+|\n.\s])+$/, // only links and other punctuation
       /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/, // all caps and a link
       /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*([dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|I found it :|Yes true)/i, // A link and a random message afterwards
       /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/, // word + link
@@ -22,6 +22,7 @@ const SITES = Object.freeze({
       /beautyzone\.\w+|\.cam|lust\.\w+/i, // suspicious websites
       /-{5,}/, // too many "-"
       /SPECIAL FOR YOU|MY CONTENT|My mom.*subscribers|literally begging|MY VIDEOS|fucking cringe|Don'?t read my name/i, // common phrase
+      /[ㄥϛㄣƐᄅƖ⅄Λ∩┴ɹԀ˥ʞſפℲƎƆ∀ʎʍʌʇɹɯʞɾᴉɥƃɟǝɔɐ]/, // upside down chars
       (text) => {
         const charSets = [
           {
@@ -31,21 +32,12 @@ const SITES = Object.freeze({
           {
             regex: /[\u{1D538}-\u{1D56B}]/gu, // math letter symbols
             matchPercent: 0.5
-          },
-          {
-            regex: /[ㄥϛㄣƐᄅƖ⅄Λ∩┴ɹԀ˥ʞſפℲƎƆ∀ʎʍʌʇɹɯʞɾᴉɥƃɟǝɔɐ]/g,
-            matchPercent: true
           }
         ];
         for (const check of charSets) {
           const { regex, matchPercent } = check,
             matches = text.match(regex)?.length ?? 0;
-          if (matchPercent === true && matches) {
-            console.log(matches)
-            return true;
-          }
           if (matches / text.length > matchPercent && text.length > 10) {
-            console.log(matches, regex)
             return true;
           }
         }
