@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.5.2
+// @version      1.5.3
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -12,20 +12,36 @@
 
 const SITES = Object.freeze({
     YOUTUBE: [
-      /^\s{2,}/, // starts with too much whitespace
-      /^(\s*@.+)?\s*(https:\/\/[^\s]+)(https:\/\/[^\s]+|\n.\s])+$/, // only links and other punctuation
-      /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/, // all caps and a link
-      /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|I found it :|Do not miss this|:\)|Ye[sp] ¤? (true|exactly)|(...?$))/i, // A link and a random message afterwards
-      /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/, // word + link
-      /(IS FREAK!|IS GARBAGE!{1,}|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/, // phrase + line + link
-      /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/, // link + random "word"
-      /PRIVATE S\*X|over 18|Anna is a beautiful girl/i, // ...
-      /beautyzone\.\w+|\.cam|lust\.\w+|\.host/i, // suspicious websites
-      /-{5,}/, // too many "-"
-      /^(Hii|Ye|Bruhh)$/,
-      /SPECIAL FOR YOU|MY CONTENT|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/, // common phrase
-      /[ㄥϛㄣƐᄅƖ⅄Λ∩┴ɹԀ˥ʞſפℲƎƆ∀ʎʍʌʇɹɯʞɾᴉɥƃɟǝɔɐ]/, // upside down chars
-      /^.$/, // just a single, weird character
+      // starts with too much whitespace
+      /^\s{2,}/,
+      // only links and other punctuation
+      /^(\s*@.+)?\s*(https:\/\/[^\s]+)(https:\/\/[^\s]+|\n.\s])+$/,
+      // all caps and a link
+      /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/,
+      // A link and a random message afterwards
+      /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|I found it :|Do not miss this|:\)|Ye[sp] ¤? (true|exactly)|(...?$))/i,
+      // word + link
+      /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/,
+      // phrase + line + link
+      /(IS FREAK!|IS GARBAGE!{1,}|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+      // link + random "word"
+      /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
+      // ...
+      /PRIVATE S\*X|over 18|Anna is a beautiful girl/i,
+      // suspicious websites
+      /beautyzone\.\w+|\.cam|lust\.\w+|\.host/i,
+      // too many "-"
+      /-{5,}/,
+      // single, somewhat strange word
+      /^(Hii|Ye|Bruhh|Aawww)$/,
+      // common phrase
+      /SPECIAL FOR YOU| YouT\*ber|MY CONTENT|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
+      // replies to this bot
+      /@Don'?t read my/i,
+      // upside down chars
+      /[ㄥϛㄣƐᄅƖ⅄Λ∩┴ɹԀ˥ʞſפℲƎƆ∀ʎʍʌʇɹɯʞɾᴉɥƃɟǝɔɐ]/,
+      // just a single, weird character
+      /^.$/,
       (text) => {
         const charSets = [
           {
