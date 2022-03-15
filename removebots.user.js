@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.5.3
+// @version      1.6.0
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -23,19 +23,21 @@ const SITES = Object.freeze({
       // word + link
       /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/,
       // phrase + line + link
-      /(IS FREAK!|IS GARBAGE!{1,}|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+      /(|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
       // link + random "word"
       /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
+      // link with a star at the end??
+      /https:\/\/youtu.be\/\w+\*/,
       // ...
       /PRIVATE S\*X|over 18|Anna is a beautiful girl/i,
       // suspicious websites
-      /beautyzone\.\w+|\.cam|lust\.\w+|\.host/i,
+      /beautyzone\.\w+|\.cam|lust\.\w+|\.host|asian\w*\.\w+|\w*teen\.\w+/i,
       // too many "-"
       /-{5,}/,
       // single, somewhat strange word
       /^(Hii|Ye|Bruhh|Aawww)$/,
       // common phrase
-      /SPECIAL FOR YOU| YouT\*ber|MY CONTENT|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
+      /SPECIAL FOR YOU| YouT\*ber|MY CONTENT|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
       // replies to this bot
       /@Don'?t read my/i,
       // upside down chars
