@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.6.0
+// @version      1.6.1
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -23,7 +23,7 @@ const SITES = Object.freeze({
       // word + link
       /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/,
       // phrase + line + link
-      /(|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+      /([\u0401\u0451\u0410-\u044f,.:]{15,}.*|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
       // link + random "word"
       /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
       // link with a star at the end??
@@ -37,7 +37,7 @@ const SITES = Object.freeze({
       // single, somewhat strange word
       /^(Hii|Ye|Bruhh|Aawww)$/,
       // common phrase
-      /SPECIAL FOR YOU| YouT\*ber|MY CONTENT|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
+      /SPECIAL FOR YOU|small channel trying to grow| YouT\*ber|MY CONTENT|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
       // replies to this bot
       /@Don'?t read my/i,
       // upside down chars
@@ -99,11 +99,16 @@ function isCommentLikelyBotComment(text, siteChecks) {
   for (const check of siteChecks) {
     if (typeof check === "function") {
       if (check(text)) {
+        console.log("Filter Check Failed");
+        console.log(text);
         return true;
       }
     } else {
       // assume regex
       if (check.test(text)) {
+        console.log("Regex Check Failed");
+        console.log(check);
+        console.log(text);
         return true;
       }
     }
