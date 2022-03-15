@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.6.1
+// @version      1.6.2
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -35,9 +35,9 @@ const SITES = Object.freeze({
       // too many "-"
       /-{5,}/,
       // single, somewhat strange word
-      /^(Hii|Ye|Bruhh|Aawww)$/,
+      /^(Hii|Ye|Bruhh|Aawww?)$/,
       // common phrase
-      /SPECIAL FOR YOU|small channel trying to grow| YouT\*ber|MY CONTENT|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
+      /SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
       // replies to this bot
       /@Don'?t read my/i,
       // upside down chars
