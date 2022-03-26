@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.7.2
+// @version      1.7.3
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -26,7 +26,7 @@ const SITES = Object.freeze({
         // word + link
         /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/,
         // phrase + line + link
-        /(Finally it's here\.?|deceives.*subscribers:\.{1,}|you .*will never love|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+        /(Finally it's here\.?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
         // link + random "word"
         /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
         // link with a star at the end??
