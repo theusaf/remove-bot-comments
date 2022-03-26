@@ -48,7 +48,7 @@ const SITES = Object.freeze({
         // just a single, weird character
         /^.$/,
         // invisible characters
-        /[\u200e]/u
+        /[\u200e]/u,
         (text) => {
           const charSets = [
             {
@@ -62,7 +62,7 @@ const SITES = Object.freeze({
             {
               regex: /[\u{1D538}-\u{1D56B}\u{1D400}-\u{1D433}]/gu, // math letter symbols
               matchPercent: 0.3
-            },
+            }
           ];
           for (const check of charSets) {
             const { regex, matchPercent } = check,
