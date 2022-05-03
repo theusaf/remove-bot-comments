@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.7.4
+// @version      1.7.5
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -22,25 +22,25 @@ const SITES = Object.freeze({
         // all caps and a link
         /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/,
         // A link and a random message afterwards
-        /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|I found it :|Do not miss this|:\)|Ye[sp] ¤? (true|exactly)|(...?$))/i,
+        /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|\.\.?\.$|I found it :|Do not miss this|:\)|Ye[sp] ¤? (true|exactly)/i,
         // word + link
         /^(\s*@.+)?\s*(This|[Ww]ow!?)\s*https:\/\/[^\s]+/,
         // phrase + line + link
-        /(is a brain burner.*|Finally it's here\.?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+        /(is a brain burner.*|Finally it's here\.?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|HOW STRONG IS KETTLE\?!|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
         // link + random "word"
         /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
         // link with a star at the end??
         /https:\/\/youtu.be\/\w+\*/,
         // ...
-        /SWEET-GIRL|PRIVATE S\*X|over 18|Anna is a beautiful girl/i,
+        /SWEET-GIRL|HOTGIRL|PRIVATE S\*X|over 18|Anna is a beautiful girl/i,
         // suspicious websites
-        /beautyzone\.\w+|\.cam|lust\.\w+|\.host|\.uno|asian\w*\.\w+|\w*teen\.\w+/i,
+        /beautyzone\.\w+|\.cam|lust\.\w+|\.host|\.uno|\.fun|asian\w*\.\w+|\w*teen\.\w+/i,
         // too many "-"
         /-{5,}/,
         // single, somewhat strange word
         /^(Hii|Ye|Bruhh|Aawww?)$/,
         // common phrase
-        / (● ´ω ｀ ●) ✨💕|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
+        / (● ´ω ｀ ●) ✨💕|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|at my profile|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn]'?[Tt] read my name/,
         // replies to bots
         /@Don'?t read my|^(ro)?bot+$/i,
         // upside down chars
