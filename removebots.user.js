@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.10.4
+// @version      1.10.5
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -41,7 +41,7 @@ const SITES = Object.freeze({
         // single, somewhat strange word
         /^(Hii|Ye|Bruhh|Aawww?|🆁🆄🅷)$/,
         // common phrase
-        /I MADE.*VIDS|оп му с[hН]аппе[ІlL]|I MAKE.*CONTENT|my videos are better|^I.m better than|I UPLOAD.*VIDEO|I (make|made).*(video|content)| (● ´ω ｀ ●) ✨💕|[Oo]mg.*it.?s finally here|I POST [A-Z\s]*?VIDEOS|HATE COMMENT|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|at my profile|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|r[\.\s]e[\.\s]a[\.\s]d[\.\s]? m[\.\s]y[\.\s]? n[\.\s]a[\.\s]m[\.\s]e|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn].?[Tt] read my name/,
+        /I MADE.*VIDS|is bad i make better content|оп му с[hН]аппе[ІlL]|I MAKE.*CONTENT|my videos are better|^I.m better than|I UPLOAD.*VIDEO|I (make|made).*(video|content)| (● ´ω ｀ ●) ✨💕|[Oo]mg.*it.?s finally here|I POST [A-Z\s]*?VIDEOS|HATE COMMENT|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|at my profile|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|r[\.\s]e[\.\s]a[\.\s]d[\.\s]? m[\.\s]y[\.\s]? n[\.\s]a[\.\s]m[\.\s]e|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn].?[Tt] read my name/,
         // replies to bots/about bots
         /When the bots|@.*a bot|@Don'?t read my|@.*ok.*[Ii].*wont|remove bots|^(ro)?bot+$|with bots|hi bot|bots.*get worse|why are.*bots|bots.*everywhere|bot repl.*row|there are.*bots|oh god.*bots|report.*bots|so many.*?bots|holy bots|do nothing about bots|bots.*common/i,
         // upside down chars
