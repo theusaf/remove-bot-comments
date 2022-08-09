@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.11.0
+// @version      1.11.2
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -27,23 +27,23 @@ const SITES = Object.freeze({
         // word + link
         /^(\s*@.+)?\s*(This|[Ww]ow!?|Last fight|Yo)\s*https:\/\/[^\s]+/,
         // phrase + line + link
-        /(is a brain burner.*|10,000.*?!|by having this:|it.?s finally here|Finally it's here\.?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|HOW STRONG IS KETTLE\?!|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+        /(is a brain burner.*|10,000.*?!|by having this:|it.?s finally here|Finally it's here\.?(\s*YES)?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|HOW STRONG IS KETTLE\?!|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
         // link + random "word"
         /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
         // link with a star at the end??
         /https:\/\/youtu.be\/\w+\*/,
         // ...
-        /SWEET-GIRL|xvideos|specialdate|HOTGIRL|PRIVATE S\*X|over 18|Anna is a beautiful girl/i,
+        /SWEET-GIRL|xvideos|specialdate|HOTGIRL|PRIVATE S\*X|over 18|Anna is a beautiful girl|adult porn videos/i,
         // suspicious websites
-        /beautyzone\.\w+|\.cam|lust\.\w+|[A-Za-z]+\.monster|\.host|\.uno|\.fun|asian\w*\.\w+|she.*\.online|\w*teen\.\w+/i,
+        /beautyzone\.\w+|[a-z]+\.online|\.cam|lust\.\w+|[a-z]+\.monster|\.host|\.uno|\.fun|asian\w*\.\w+|she.*\.online|\w*teen\.\w+/i,
         // too many "-"
         /-{5,}/,
         // single, somewhat strange word
-        /^(Hii|Ye|Bruhh|Aawww?|🆁🆄🅷)$/,
+        /^(Hii|Ye|Bruhh|Aawww?|🆁🆄🅷\s?!*)$/,
         // common phrase
         /I'm not scared of ghosts,? and you\?|SCREAMING IN H[E3]LL BECAUSE MY.*?BETTER|I MADE.*VIDS|is bad i make better content|оп му с[hН]аппе[ІlL]|I MAKE.*CONTENT|my videos are better|^I.m better than|I UPLOAD.*VIDEO|I (make|made).*(video|content)| (● ´ω ｀ ●) ✨💕|[Oo]mg.*it.?s finally here|I POST [A-Z\s]*?VIDEOS|HATE COMMENT|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|at my profile|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|r[\.\s]e[\.\s]a[\.\s]d[\.\s]? m[\.\s]y[\.\s]? n[\.\s]a[\.\s]m[\.\s]e|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn].?[Tt] read my name/,
         // replies to bots/about bots
-        /When the bots|@.*a bot|@Don'?t read my|@.*ok.*[Ii].*wont|remove bots|^(ro)?bot+$|with bots|hi bot|bots.*get worse|why are.*bots|bots.*everywhere|bot repl.*row|there are.*bots|oh god.*bots|report.*bots|so many.*?bots|holy bots|do nothing about bots|bots.*common/i,
+        /When the bots|@.*a bot|@Don'?t read my|@.*ok.*[Ii].*wont|remove bots|^(ro)?bot+$|with bots|hi bot|bots.*get worse|why are.*bots|bots.*everywhere|bot repl.*row|there are.{0,15}bots|oh god.*bots|report.*bots|so many.*?bots|holy bots|do nothing about bots|bots.*common/i,
         // upside down chars
         /[ㄥϛㄣƐᄅƖ⅄Λ∩┴ɹԀ˥ʞſפℲƎƆ∀ʎʍʌʇɹɯʞɾᴉɥƃɟǝɔɐ]/,
         // just a single, weird character
