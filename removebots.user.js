@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.11.2
+// @version      1.12.0
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -23,11 +23,13 @@ const SITES = Object.freeze({
         // all caps and a link
         /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/,
         // A link and a random message afterwards
-        /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|\.\.?\.$|I found it :|Do not miss this|:)|Ye[sp] ¤? (true|exactly)/i,
+        /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|This is where (the )?world'?s first " ?Rick Rolled" started\.?|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|\.\.?\.$|I found it :|Do not miss this|:)|Ye[sp] ¤? (true|exactly)/i,
         // word + link
         /^(\s*@.+)?\s*(This|[Ww]ow!?|Last fight|Yo)\s*https:\/\/[^\s]+/,
         // phrase + line + link
         /(is a brain burner.*|10,000.*?!|by having this:|it.?s finally here|Finally it's here\.?(\s*YES)?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|HOW STRONG IS KETTLE\?!|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+        // various languages + line + link
+        /^[\p{Script=Cyrillic}\s!\.]*(\n|\s)(\n|.)*https:\/\/((www|m)\.)?youtu[^\s]+/iu,
         // link + random "word"
         /^(\s*@.+)?\s*https:\/\/[^\s]+\s*[a-z]+\s*$/,
         // link with a star at the end??
