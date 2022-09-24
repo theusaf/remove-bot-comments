@@ -1,0 +1,22 @@
+{
+  "name": "remove-bot-comments",
+  "version": "1.14.0",
+  "description": "Hide comments made by annoying bots on various websites.",
+  "main": "removebots.user.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theusaf/remove-bot-comments.git"
+  },
+  "author": "theusaf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theusaf/remove-bot-comments/issues"
+  },
+  "homepage": "https://github.com/theusaf/remove-bot-comments#readme",
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}

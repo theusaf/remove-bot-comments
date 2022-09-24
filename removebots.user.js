@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide Bot Comments
 // @namespace    https://theusaf.org
-// @version      1.12.1
+// @version      1.14.0
 // @description  Removes comments made by bots on websites such as YouTube.
 // @author       theusaf
 // @match        https://www.youtube.com/**
@@ -23,11 +23,11 @@ const SITES = Object.freeze({
         // all caps and a link
         /^(\s*@.+)?\s*[A-Z\s\r\n!]*https:\/\/[^\s]+[A-Z\s\r\n!]*$/,
         // A link and a random message afterwards
-        /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(It'll blow your mind\.|This is where (the )?world'?s first " ?Rick Rolled" started\.?|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|\.\.?\.$|I found it :|Do not miss this|:)|Ye[sp] ¤? (true|exactly)/i,
+        /^(\s*@.+)?\s*https:\/\/[^\s]+(\n|.|\s)*(Here'?s the full video.*?this video|It'll blow your mind\.|This is where (the )?world'?s first " ?Rick Rolled" started\.?|[dD]on'?t [mM]iss|Bots for u|Finally|💜|fax|only until|Bots are|:]|\.\.?\.$|I found it :|Do not miss this|:)|Ye[sp] ¤? (true|exactly)/i,
         // word + link
         /^(\s*@.+)?\s*(This|[Ww]ow!?|Last fight|Yo)\s*https:\/\/[^\s]+/,
         // phrase + line + link
-        /(Link to the clip\.? [Tt]hank me later|is a brain burner.*|^Link to the clip part 2|10,000.*?!|by having this:|it.?s finally here|Finally it's here\.?(\s*YES)?|deceives.*subscribers:\.{1,}|you .*will never love.*|[\u0401\u0451\u0410-\u044f,.:]{15,}.*|HOW STRONG IS KETTLE\?!|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth.*|his subscribers.*|will stop watching.*|yes\.?|THE GAME.*|After watching this video you will never love.*)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
+        /((Here'?s the clip thank|^Link to the clip|Finally.*?the clip u all|is a brain burner|Let'?s be honest we|I have been waiting so long|by having this:|[iI]t.?s finally here|Finally.*is finally here|it is finally there|you .*will never love|[\u0401\u0451\u0410-\u044f,.:]{15,}|HOW STRONG IS KETTLE\?!|EXPOSED:|IS FREAK!|IS GARBAGE!{1,}|shocking truth|his subscribers|will stop watching|THE GAME|After watching this video you will never love).*|(yes\.?|deceives.*subscribers:\.{1,}|Finally it'?s here\.?(\s*YES)?)|^Link to the clip part 2|10,000.*?!|This is the clip u all.*:|Link to the clip\.? [Tt]hank me later|^Here you go|^yo\b|full vid -)(\n|\s)(\n|.)*https:\/\/[^\s]+/,
         // various languages + line + link
         /^[\p{Script=Cyrillic}\s!\.]*(\n|\s)(\n|.)*https:\/\/((www|m)\.)?youtu[^\s]+/iu,
         // link + random "word"
@@ -41,11 +41,11 @@ const SITES = Object.freeze({
         // too many "-"
         /-{5,}/,
         // single, somewhat strange word
-        /^(Hii|Ye|Bruhh|Aawww?|🆁🆄🅷\s?!*)$/,
+        /^([ĤHh]ii|Ye|[Bb]ruhh|[Aa]awww?|🆁🆄🅷\s?!*)$/,
         // common phrase
-        /I'm not scared of ghosts,? and you\?|SCREAMING IN H[E3]LL BECAUSE MY.*?BETTER|I MADE.*VIDS|is bad i make better content|оп му с[hН]аппе[ІlL]|I MAKE.*CONTENT|my videos are better|^I.m better than|I UPLOAD.*VIDEO|I (make|made).*(video|content)| (● ´ω ｀ ●) ✨💕|[Oo]mg.*it.?s finally here|I POST [A-Z\s]*?VIDEOS|HATE COMMENT|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|at my profile|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|r[\.\s]e[\.\s]a[\.\s]d[\.\s]? m[\.\s]y[\.\s]? n[\.\s]a[\.\s]m[\.\s]e|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn].?[Tt] read my name/,
+        /Send(.|\n)*?direct message(.|\n)*?(won a gift|your prize)|BECOME THE MOST HATED|Thanks for watching..? messages|I'm not scared of ghosts,? and you\?|SCREAMING IN H[E3]LL BECAUSE MY.*?BETTER|I MADE.*VIDS|is bad i make better content|оп му с[hН]аппе[ІlL]|I MAKE.*CONTENT|my videos are better|^I.m better than|I UPLOAD.*VIDEO|I (make|made).*(video|content)| (● ´ω ｀ ●) ✨💕|[Oo]mg.*it.?s finally here|I POST [A-Z\s]*?VIDEOS|HATE COMMENT|I can read you mind brother|SPECIAL FOR YOU|l1ke my v1deo|small channel trying to grow| YouT\*ber|MY CONTENT|MY NAME|at my profile|My video|pedophile😱|MY WORLD RECORD|(^Yes.{0,5}$)|said this to a fan|Read my name|[Mm]y mom.*subscribers|r[\.\s]e[\.\s]a[\.\s]d[\.\s]? m[\.\s]y[\.\s]? n[\.\s]a[\.\s]m[\.\s]e|literally begging|MY VIDEOS?|my playlist|fucking cringe|[Dd][Oo][Nn].?[Tt] read my name/,
         // replies to bots/about bots
-        /When the bots|@.*a bot|@Don'?t read my|@.*ok.*[Ii].*wont|remove bots|^(ro)?bot+$|with bots|hi bot|bots.*get worse|why are.*bots|bots.*everywhere|bot repl.*row|there are.{0,15}bots|oh god.*bots|report.*bots|so many.*?bots|holy bots|do nothing about bots|bots.*common/i,
+        /already bots|When the bots|@.*a bot|@Don'?t read my|@.*ok.*[Ii].*wont|remove bots|^(ro)?bot+$|with bots|hi bot|bots.*get worse|why are.*bots|bots.*everywhere|bot repl.*row|there are.{0,15}bots|oh god.*bots|report.*bots|so many.*?bots|holy bots|do nothing about bots|bots.*common/i,
         // upside down chars
         /[ㄥϛㄣƐᄅƖ⅄Λ∩┴ɹԀ˥ʞſפℲƎƆ∀ʎʍʌʇɹɯʞɾᴉɥƃɟǝɔɐ]/,
         // just a single, weird character
@@ -54,24 +54,28 @@ const SITES = Object.freeze({
         /[\u200e]/u,
         (text) => {
           const matches = text.match(/[\u{0E80}-\u{0EFF}]/gu)?.length ?? 0;
-          if (matches / text.length > 0.5 && /Don.?t tran?slate|Do not tran?slate/i.test(text)) {
+          if (
+            matches / text.length > 0.5 &&
+            /Don.?t tran?slate|Do not tran?slate/i.test(text)
+          ) {
             return true;
           }
         },
         (text) => {
           const charSets = [
             {
-              regex: /[\u{fe27}-\u{fe2f}\u{1df5}-\u{1dff}\u{1dc0}-\u{1de6}\u{1ab0}-\u{1abe}\u{0300}-\u{0333}\u{0339}-\u{033f}\u{0346}-\u{034a}\u{034b}-\u{034e}\u{0350}-\u{0357}\u{0358}-\u{035b}]/gu, // weird combining characters
-              matchPercent: 0.4
+              regex:
+                /[\u{fe27}-\u{fe2f}\u{1df5}-\u{1dff}\u{1dc0}-\u{1de6}\u{1ab0}-\u{1abe}\u{0300}-\u{0333}\u{0339}-\u{033f}\u{0346}-\u{034a}\u{034b}-\u{034e}\u{0350}-\u{0357}\u{0358}-\u{035b}]/gu, // weird combining characters
+              matchPercent: 0.4,
             },
             {
               regex: /[ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘᴏ̨ʀsᴛᴜᴠᴡxʏᴢ\s]/g,
-              matchPercent: 0.5
+              matchPercent: 0.5,
             },
             {
               regex: /[\u{1D538}-\u{1D56B}\u{1D400}-\u{1D433}]/gu, // math letter symbols
-              matchPercent: 0.3
-            }
+              matchPercent: 0.3,
+            },
           ];
           for (const check of charSets) {
             const { regex, matchPercent } = check,
@@ -80,13 +84,37 @@ const SITES = Object.freeze({
               return true;
             }
           }
-        }
+        },
+        // Username checks
+        (_, node) => {
+          const usernameNode = node.querySelector("#author-text"),
+            userImage = node.querySelector("#img"),
+            username = usernameNode.textContent.trim(),
+            BAD_NAMES = [
+              // remove
+              /^SUB FOR SUB$/,
+            ],
+            HIDE_NAMES = [
+              // don't remove, just hide pic and name
+            ];
+          for (const regex of BAD_NAMES) {
+            if (regex.test(username)) {
+              return true;
+            }
+          }
+          for (const regex of HIDE_NAMES) {
+            if (regex.test(username)) {
+              userImage.src = "data:application/svg+xml,<svg></svg>";
+            }
+          }
+          return false;
+        },
       ],
       getCommentText(node) {
         if (node.nodeName === "YTD-COMMENT-RENDERER") {
           return node.querySelector("#content-text").textContent;
         }
-      }
+      },
     },
     FACEBOOK_EMBED: {
       hostname: "www.facebook.com",
@@ -99,28 +127,24 @@ const SITES = Object.freeze({
         /(manga|story|site|website).*?:\s?(https?:\/\/[^\s]+|\n.\s])+$/,
         // Other weird comments/scams
         /look at a website|very popular .*?website|Amazon gift card/,
-        /^i love sex$/
+        /^i love sex$/,
       ],
       options: {
         initialScan: () => {
           return document.querySelectorAll(".clearfix");
-        }
+        },
       },
       getCommentText(node) {
         if (node.classList?.contains("clearfix")) {
           try {
-            return node?.lastElementChild
-              .lastElementChild
-              .lastElementChild
-              .firstElementChild
-              .children[1]
-              .textContent;
+            return node?.lastElementChild.lastElementChild.lastElementChild
+              .firstElementChild.children[1].textContent;
           } catch (err) {
             return null;
           }
         }
-      }
-    }
+      },
+    },
   }),
   site = getCurrentSite(),
   commentMutationListener = new MutationObserver((mutations) => {
@@ -128,7 +152,7 @@ const SITES = Object.freeze({
       for (const node of mutation.addedNodes) {
         const text = site.getCommentText(node);
         if (text) {
-          if (isCommentLikelyBotComment(text, site)) {
+          if (isCommentLikelyBotComment(text, site, node)) {
             node.style.display = "none";
           }
         }
@@ -138,20 +162,21 @@ const SITES = Object.freeze({
 
 commentMutationListener.observe(document.body, {
   subtree: true,
-  childList: true
+  childList: true,
 });
 
 /**
  * Determines whether a comment is likely spam.
  *
- * @param {String} text The comment's content
- * @param {Object} site The website the comment is from
+ * @param {string} text The comment's content
+ * @param {object} site The website the comment is from
+ * @param {Node}   node
  * @return {Boolean}
  */
-function isCommentLikelyBotComment(text, site) {
+function isCommentLikelyBotComment(text, site, node) {
   for (const check of site.checks) {
     if (typeof check === "function") {
-      if (check(text)) {
+      if (check(text, node)) {
         console.log("Filter Check Failed");
         console.log(text);
         return true;
@@ -183,7 +208,7 @@ if (site.options?.initialScan) {
   for (const node of items) {
     const text = site.getCommentText(node);
     if (text) {
-      if (isCommentLikelyBotComment(text, site)) {
+      if (isCommentLikelyBotComment(text, site, node)) {
         node.style.display = "none";
       }
     }
